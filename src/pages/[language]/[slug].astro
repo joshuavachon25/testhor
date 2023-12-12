@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { marked } from 'marked';
+import {getDirectusClient} from "../../utils/directus";
+import {readItem, readItems} from "@directus/sdk";
+
+
+export async function getStaticPaths() {
+    const client = await getDirectusClient();
+    const data = await client.request(readItems('posts', {fields: ['*', { translations: ['*'] }],}))
+    const lang = ['fr', 'en']
+
+    return data.flatMap((post) => {
+        return lang.map((l) => {
+            return {
+                params: { language: l, slug: post.slug },
+                props: { post },
+            }
+        })
+
+    });
+}
+
+const { language, slug } = Astro.params;
+const { post } = Astro.props;
+const p = post.translations[language === "fr" ? 0 : 1]
+---
+
+<Layout title="Welcome to Astro." current=`${language === "fr" ? "en" : "fr"}/${slug}`>
+{p.title}
+</Layout>

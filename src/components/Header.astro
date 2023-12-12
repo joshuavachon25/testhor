@@ -1,0 +1,37 @@
+---
+import {Image} from "astro:assets";
+import logo from "../assets/logo.svg";
+import bg from "../assets/bg4.png";
+
+const slogan = {
+	fr: "Tests automatisés, codes et IA",
+	en: "Automated tests, coding and AI"
+}
+const blog = {fr: "Blogue", en: "Blog"}
+const about = {fr: "À propos", en: "About"}
+
+const {lang, current} = Astro.props
+---
+<div class="w-4/12 fixed left-0 h-full hero" style=`background-image: url(${bg.src});`>
+
+	<div class="hero-overlay invert opacity-90 w-full"></div>
+	<div class="hero-content flex flex-col px-20 w-full h-full justify-center items-center">
+		<div class="flex flex-col justify-center items-end pb-10 w-full">
+			<Image src={logo} alt="Logo" class="inline p-4" width="150"/>
+			<h1 class="text-5xl font-black tracking-widest">TESTHOR<span class="animate-ping">_</span></h1>
+			<p class="text-xl tracking-wider text-right">{slogan[lang]}</p>
+			<div class="mt-10"></div>
+			<div class="flex flex-col text-right">
+				<a>{blog[lang]}</a>
+				<a>{about[lang]}</a>
+			</div>
+			<div class="mt-10"></div>
+			<div>
+				{lang === "fr" ? <a href=`${current}`>English version</a> : <a href=`${current}`>Version francaise</a>}
+
+			</div>
+		</div>
+	</div>
+</div>
+
+

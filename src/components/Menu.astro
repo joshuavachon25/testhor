@@ -1,0 +1,20 @@
+---
+import {Image} from "astro:assets";
+import logo from "../assets/logo.svg";
+
+---
+<div class="bg-black rounded-md fixed top-12 left-1/2 transform -translate-x-1/2 min-h-10 w-8/12 bg-opacity-50">
+    <div class="flex justify-between">
+		<div class="flex items-center">
+			<Image src={logo} alt="Logo" class="invert inline p-4" width="100"/>
+			<h1 class="text-5xl font-black text-white">TESTHOR<span class="animate-ping">_</span></h1>
+		</div>
+		<div class="flex gap-10 items-center pr-10">
+			<a href="#">Blog</a>
+			<a href="#">À propos</a>
+            <a href="#">EN</a>
+		</div>
+    </div>
+
+
+</div>
