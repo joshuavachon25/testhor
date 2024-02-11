@@ -1,7 +1,7 @@
 ---
 import {Image} from "astro:assets";
-import logo from "../assets/logo.svg";
-import bg from "../assets/bg4.png";
+import logo from "../../assets/logo.svg";
+import bg from "../../assets/bg4.png";
 
 const slogan = {
 	fr: "Tests automatisés, codes et IA",
@@ -12,26 +12,68 @@ const about = {fr: "À propos", en: "About"}
 
 const {lang, current} = Astro.props
 ---
-<div class="w-4/12 fixed left-0 h-full hero" style=`background-image: url(${bg.src});`>
+<header class="bg-white">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <a href="#" class="-m-1.5 p-1.5">
+      <p class="text-3xl font-bold">testhor.</p>
+      <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""> -->
+    </a>
+    <div class="flex lg:hidden">
+      <button type="button" id="menuBtn" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      <a href={lang === "fr" ? "/fr/blog/1" : "/en/blog/1"} class="text-sm font-semibold leading-6 text-gray-900">{blog[lang]}</a>
+      <a href={lang === "fr" ? "/fr/about" : "/en/about"} class="text-sm font-semibold leading-6 text-gray-900">{about[lang]}</a>
+      <a href={lang === "fr" ? "/en" : "/fr"} class="text-sm font-semibold leading-6 text-gray-900">{lang === "fr" ? "EN" : "FR"} <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+  <!-- Mobile menu, show/hide based on menu open state. -->
+  <div class=`hidden lg:hidden` id="mobileMenu" role="dialog" aria-modal="true">
+    <!-- Background backdrop, show/hide based on slide-over state. -->
+    <div class="fixed inset-0 z-10"></div>
+    <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+      <div class="flex items-center justify-between">
+        <a href="#" class="-m-1.5 p-1.5">
+          <p class="text-3xl font-bold">testhor.</p>
+        </a>
+        <button type="button" id="closeMenuBtn" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+          <span class="sr-only">Close menu</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="mt-6 flow-root">
+        <div class="-my-6 divide-y divide-gray-500/10">
+          <div class="space-y-2 py-6">
+            <a href={lang === "fr" ? "/fr/blog/1" : "/en/blog/1"} class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{blog[lang]}</a>
+            <a href={lang === "fr" ? "/fr/about" : "/en/about"} class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{about[lang]}</a>
+          </div>
+          <div class="py-6">
+            <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{lang === "fr" ? "EN" : "FR"}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-	<div class="hero-overlay invert opacity-90 w-full"></div>
-	<div class="hero-content flex flex-col px-20 w-full h-full justify-center items-center">
-		<div class="flex flex-col justify-center items-end pb-10 w-full">
-			<Image src={logo} alt="Logo" class="inline p-4" width="150"/>
-			<h1 class="text-5xl font-black tracking-widest">TESTHOR<span class="animate-ping">_</span></h1>
-			<p class="text-xl tracking-wider text-right">{slogan[lang]}</p>
-			<div class="mt-10"></div>
-			<div class="flex flex-col text-right">
-				<a>{blog[lang]}</a>
-				<a>{about[lang]}</a>
-			</div>
-			<div class="mt-10"></div>
-			<div>
-				{lang === "fr" ? <a href=`${current}`>English version</a> : <a href=`${current}`>Version francaise</a>}
+<script>
+  
+  const mobileMenu = document.getElementById("mobileMenu")
+  const menuButton = document.getElementById("menuBtn")
+  const closeMenuButton = document.getElementById("closeMenuBtn")
 
-			</div>
-		</div>
-	</div>
-</div>
+  menuButton.addEventListener("click", () => {
+    mobileMenu.classList.remove("hidden")
+  })
 
-
+  closeMenuButton.addEventListener("click", () => {
+    mobileMenu.classList.add("hidden")
+  })
+</script>

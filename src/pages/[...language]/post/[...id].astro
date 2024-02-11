@@ -1,0 +1,15 @@
+---
+export async function getStaticPaths() {
+  const post = {title_fr:"Bon matin", title_en: "Good morning!"}
+  const language = ["fr", "en"]
+  return [
+    {params: { id: 1, language: language[0]}, props: {post}},
+    {params: { id: 1, language: language[1]}, props: {post}}
+  ]
+}
+
+const { id, language } = Astro.params;
+const {post} = Astro.props
+---
+
+{post["title_" + language]} 

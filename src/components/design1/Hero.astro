@@ -1,16 +1,37 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
+
+const L = {
+  en: {
+    headline: "Automate.",
+    description: "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.",
+    btn1: "Read me",
+    btn2: "Who am I?"
+  },
+  fr: {
+    headline: "Automatisez.",
+    description: "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.",
+    btn1: "Lire mes articles",
+    btn2: "À propos"
+  }
+}
+
+const {lang} = Astro.props
 ---
 
-<div class="hero min-h-[60vh]" style="background-image: url(https://images.unsplash.com/photo-1510739859545-e7b9e979de86?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);">
-	<!--<div class="hero-overlay bg-opacity-60"></div>-->
-	<div class="hero-content text-center text-black">
-		<div class="">
-
-
-			<h2 class="text-2xl">Petit blog zen par un développeur de tests logiciels</h2>
-
-		</div>
-	</div>
+<div class="flex bg-white">
+  <div class="mx-auto max-w-7xl flex">
+    <div class="px-6 pt-10 lg:col-span-7 xl:col-span-6">
+      <h1 class="mt-24 text-4xl font-bold tracking-tight text-gray-900 sm:mt-10 sm:text-6xl">{L[lang].headline}</h1>
+        <p class="mt-6 text-lg leading-8 text-gray-600">{L[lang].description}</p>
+        <div class="mt-10 flex items-center gap-x-6">
+          <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{L[lang].btn1}</a>
+          <a href="#" class="text-sm font-semibold leading-6 text-gray-900">{L[lang].btn2} <span aria-hidden="true">→</span></a>
+        </div>
+    </div>
+    <div class="">
+      <img class="" src={logo.src} alt="">
+    </div>
+  </div>
 </div>

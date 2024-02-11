@@ -1,0 +1,55 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { marked } from "marked";
+import { getDirectusClient } from "../../../utils/directus";
+import { readItem, readItems } from "@directus/sdk";
+import ContentCard from "../../../components/design1/ContentCard.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const client = await getDirectusClient();
+  const posts = await client.request(
+    readItems("posts", { fields: ["*", {author: ["*"]}, { translations: ["*"] }] }),
+  );
+  const pages: Array<Number> = [1];
+  for (var i = 1; i <= posts.length; i++) {
+    const x = i + 10;
+    x % 10 === 0 ? pages.push(parseInt(x.toString()[0])) : true;
+  }
+
+  let paths: Array<object> = [];
+  pages.forEach((p) => {
+    paths.push({
+      params: { language: "fr", page: p },
+      props: { posts: posts.slice((p - 1) * 10, (p - 1) * 10 + 10), max: posts.length < (10 * (p-1)) },
+    });
+    paths.push({
+      params: { language: "en", page: p },
+      props: { posts: posts.slice((p - 1) * 10, (p - 1) * 10 + 10), max: posts.length < (10 * (p-1)) },
+    });
+  });
+
+  return paths;
+}
+
+const { language, page } = Astro.params;
+const { posts, max } = Astro.props;
+---
+
+<Layout title="Welcome to Astro." current=`${language === "fr" ? "en" : "fr"}/`>
+  <div
+    class="grid grid-cols-4 gap-5 w-4/5 mx-auto my-16"
+  >
+    {
+      posts.map((post) => (
+        <ContentCard
+          content={post}
+          lang={language === "fr" ? 0 : 1}
+          image={"https://testhor.fjordcms.app/assets/" + post.image}
+        />
+      ))
+    }
+    
+  </div>
+  {page > 1 ? <a href="">Page précédente</a> : ""}
+  {max ? <a href="">Page suivante</a>: ""}
+</Layout>

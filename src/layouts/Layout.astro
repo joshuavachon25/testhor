@@ -1,21 +1,18 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 
-import Hero from "../components/Hero.astro";
-import Menu from "../components/Menu.astro";
-import Header from "../components/Header.astro";
-import {getLocaleByPath} from "astro/dist/i18n";
-import Footer from "../components/Footer.astro";
-interface Props {
-	title: string;
-}
+import Hero from "../components/design1/Hero.astro";
+import Menu from "../components/design1/Menu.astro";
+import Header from "../components/design1/Header.astro";
+import { getLocaleByPath } from 'astro:i18n';
+import Footer from "../components/design1/Footer.astro";
 
 const { title, current } = Astro.props;
 const lang = Astro.currentLocale
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang=`${lang}` transition:animate="none">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -27,14 +24,7 @@ const lang = Astro.currentLocale
 	</head>
 	<body data-theme="cmyk" class="" >
 		<Header {lang} {current}/>
-		<div class="absolute right-0 w-8/12 flex flex-col min-h-full">
-			<div class="grow">
-				<slot />
-			</div>
-			<Footer {lang}/>
-		</div>
-		<!--<Menu/>-->
-		<!--<Hero/>-->
-
+    <slot />
+    <Footer {lang}/>
 	</body>
 </html>

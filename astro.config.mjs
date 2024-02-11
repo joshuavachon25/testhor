@@ -7,13 +7,14 @@ export default defineConfig({
   integrations: [tailwind()],
   i18n: {
     defaultLocale: "fr",
-    locales: ["en", {
-      path: "fr", // no slashes included
-      codes: ["fr", "fr-BR", "fr-CA"]
-    }],
+    locales: ["en", { path: "fr", codes: ["fr", "fr-BR", "fr-CA"] }],
     routing: {
       prefixDefaultLocale: true
     }
   },
+  // redirects: {
+  //   '/en/blog': '/en/blog/1',
+  //   '/fr/blog': '/fr/blog/1',
+  // }
 
 });
