@@ -1,15 +1,70 @@
 ---
+import Layout from "../../../layouts/Layout.astro"
+import { readItems } from "@directus/sdk";
+import { getDirectusClient } from "../../../utils/directus";
+
 export async function getStaticPaths() {
-  const post = {title_fr:"Bon matin", title_en: "Good morning!"}
-  const language = ["fr", "en"]
-  return [
-    {params: { id: 1, language: language[0]}, props: {post}},
-    {params: { id: 1, language: language[1]}, props: {post}}
-  ]
+  const client = await getDirectusClient();
+  const posts = await client.request(
+    readItems("posts", { fields: ["*", {author: ["first_name", "last_name", "avatar"]}, { translations: ["*"] }]}),
+  );
+
+  let paths: Array<object> = [];
+  posts.forEach((p) => {
+    paths.push({
+      params: { language: "fr", id: p.slug},
+      props: { post: p},
+    })
+    paths.push({
+      params: { language: "en", id: p.slug},
+      props: { post: p},
+    })
+  });
+
+  return paths;
 }
+
 
 const { id, language } = Astro.params;
 const {post} = Astro.props
----
 
-{post["title_" + language]} 
+const lang = language === "fr" ? 0 :1
+---
+<Layout>
+  <div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+      <p class="text-base font-semibold leading-7 text-indigo-600">{post.translations[lang].tag}</p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{post.translations[lang].title}</h1>
+ 
+      <p class="mt-6 text-xl leading-8" set:html={post.translations[lang].summary}></p>
+      <div class="post mt-10 max-w-2xl" set:html={post.translations[lang].content}></div>
+    </div>
+  </div>
+  
+</Layout>
+
+<style is:global>
+  .post {
+    @apply mb-3 text-gray-500 dark:text-gray-400;
+  }
+
+  .post p{
+    @apply mt-5;
+  }
+
+  .post blockquote p{
+    @apply text-gray-800 sm:text-xl dark:text-white before:content-['📎'];
+  }
+
+  .post a{
+    @apply font-medium text-blue-600 underline dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:no-underline;
+  }
+
+  .post h2{
+
+  }
+
+  .post h3{
+    @apply mt-8 text-2xl font-bold tracking-tight text-gray-900;
+  }
+</style>

@@ -47,7 +47,7 @@ const publishedDate = `${rawDate.getDate()}/${rawDate.getMonth()}/${rawDate.getF
     </div>
   </div>
   <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-    <a href="#">
+    <a href={(lang === 0 ? "/fr":"/en") + "/post/" + content.slug}>
       <span class="absolute inset-0"></span>
       {content.translations[lang].title}
     </a>
