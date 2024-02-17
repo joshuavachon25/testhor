@@ -12,9 +12,9 @@ export default defineConfig({
       prefixDefaultLocale: true
     }
   },
-  // redirects: {
-  //   '/en/blog': '/en/blog/1',
-  //   '/fr/blog': '/fr/blog/1',
-  // }
+  redirects: {
+    '/en/blog': '/en/blog/1',
+    '/fr/blog': '/fr/blog/1',
+  }
 
 });
