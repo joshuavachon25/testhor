@@ -26,6 +26,6 @@ const { post } = Astro.props;
 const p = post.translations[language === "fr" ? 0 : 1]
 ---
 
-<Layout title="Welcome to Astro." current=`${language === "fr" ? "en" : "fr"}/${slug}`>
+<Layout title="Welcome to Astro." current=`${slug}`>
 {p.title}
 </Layout>

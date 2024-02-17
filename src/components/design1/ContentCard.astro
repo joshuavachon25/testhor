@@ -37,12 +37,10 @@ const publishedDate = `${rawDate.getDate()}/${rawDate.getMonth()}/${rawDate.getF
         <circle cx="1" cy="1" r="1"></circle>
       </svg>
       <div class="flex gap-x-2.5">
-        <img
-          src={logo.src}
-          alt=""
-          class="h-6 w-6 flex-none rounded-full bg-white/10"
-        />
-        {content.author.first_name + " " +content.author.last_name}
+        <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"> {content.translations[lang].tag}</span>
+         
+       
+        
       </div>
     </div>
   </div>

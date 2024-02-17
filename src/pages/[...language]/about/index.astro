@@ -1,27 +1,38 @@
 ---
 import Layout from "../../../layouts/Layout.astro"
 import logo from "../../../assets/logo.svg"
+import { getDirectusClient } from "../../../utils/directus";
+import { readItems } from "@directus/sdk";
 
 export async function getStaticPaths() {
+  const client = await getDirectusClient();
+  const about = await client.request(
+    readItems("about", { fields: ["*", { translations: ["*"] }]}),
+  );
+
   let paths: Array<object> = [];
   paths.push({
+      props: {about: about.translations[0]},
       params: { language: "fr"},
     })
   paths.push({
+      props: {about: about.translations[1]},
       params: { language: "en"},
     })
   
 
   return paths;
 }
+
+const {about} = Astro.props
 ---
 
-<Layout>
+<Layout title="À propos" current="about">
   <div class="bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
       <p><img src={logo.src} alt="" width="300" class="mx-auto"></p>
       <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl mt-6">Joshua Vachon</h2>
-      <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+      <p class="mt-6 text-lg leading-8 text-gray-600">{about.description}</p>
     </div>
   </div>
   

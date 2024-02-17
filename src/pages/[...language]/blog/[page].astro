@@ -35,21 +35,23 @@ const { language, page } = Astro.params;
 const { posts, max } = Astro.props;
 ---
 
-<Layout title="Welcome to Astro." current=`${language === "fr" ? "en" : "fr"}/`>
-  <div
-    class="grid grid-cols-4 gap-5 w-4/5 mx-auto my-16"
-  >
-    {
-      posts.map((post) => (
-        <ContentCard
-          content={post}
-          lang={language === "fr" ? 0 : 1}
-          image={"https://testhor.fjordcms.app/assets/" + post.image}
-        />
-      ))
-    }
-    
+<Layout title="Welcome to Astro." current=`blog/${page}`>
+  <div class="bg-white py-12 sm:py-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+      <div class="mx-auto mt-8 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        {
+          posts.map((post) => (
+            <ContentCard
+              content={post}
+              lang={language === "fr" ? 0 : 1}
+              image={"https://testhor.fjordcms.app/assets/" + post.image}
+            />
+          ))
+        }
+         {page > 1 ? <a href="">Page précédente</a> : ""}
+         {max ? <a href="">Page suivante</a>: ""}
+      </div>
+    </div>
   </div>
-  {page > 1 ? <a href="">Page précédente</a> : ""}
-  {max ? <a href="">Page suivante</a>: ""}
 </Layout>
