@@ -4,7 +4,7 @@ import { getDirectusClient } from "../../utils/directus";
 
 const client = await getDirectusClient();
 const params = await client.request(
-  readItems("Parametres", { fields: ["*"]}),
+  readItems("parameters", { fields: ["*"]}),
 );
 
 
