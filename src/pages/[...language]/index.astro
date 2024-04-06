@@ -26,9 +26,10 @@ export async function getStaticPaths() {
 }
 
 const lang = Astro.currentLocale
+const uiLang = {fr: "Accueil", en:"Homepage"}
 ---
 
-<Layout title="Welcome to Testhor" current="">
+<Layout title={uiLang[lang]} current="">
   <Hero lang={lang}/>
   <PostList/>
 </Layout>

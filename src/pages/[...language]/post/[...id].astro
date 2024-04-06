@@ -30,7 +30,7 @@ const {post} = Astro.props
 
 const lang = language === "fr" ? 0 :1
 ---
-<Layout current=`post/${id}`>
+<Layout title={post.translations[lang].title} current=`post/${id}`>
   <div class="bg-white px-6 py-12 lg:px-8">
     <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
       <p class="text-base font-semibold leading-7 text-indigo-600">{post.translations[lang].tag}</p>

@@ -32,10 +32,11 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { language, page } = Astro.params;
+const uiLang = {fr: "Articles", en:"Posts"}
 const { posts, max } = Astro.props;
 ---
 
-<Layout title="Welcome to Astro." current=`blog/${page}`>
+<Layout title={uiLang[language]} current=`blog/${page}`>
   <div class="bg-white py-12 sm:py-12">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
 

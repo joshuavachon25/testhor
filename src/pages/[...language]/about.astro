@@ -25,9 +25,11 @@ export async function getStaticPaths() {
 }
 
 const {about} = Astro.props
+const lang = Astro.currentLocale
+const uiLang = {fr: "À propos", en:"About"}
 ---
 
-<Layout title="À propos" current="about">
+<Layout title={uiLang[lang]} current="about">
   <div class="bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
       <p><img src={logo.src} alt="" width="300" class="mx-auto"></p>

@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png"
 
 const { content, image, lang } = Astro.props;
 const rawDate = new Date(content.date_published)
-const publishedDate = `${rawDate.getDate()}/${rawDate.getMonth()}/${rawDate.getFullYear()}`
+const publishedDate = `${rawDate.getDate()}/${rawDate.getMonth() + 1}/${rawDate.getFullYear()}`
 
 ---
 
