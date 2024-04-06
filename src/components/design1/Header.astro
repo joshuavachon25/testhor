@@ -28,7 +28,7 @@ const {lang, current} = Astro.props
     <div class="hidden lg:flex lg:gap-x-12">
       <a href={lang === "fr" ? "/fr/blog/1" : "/en/blog/1"} class="text-sm font-semibold leading-6 text-gray-900">{blog[lang]}</a>
       <a href={lang === "fr" ? "/fr/about/" : "/en/about/"} class="text-sm font-semibold leading-6 text-gray-900">{about[lang]}</a>
-      <a href={lang === "fr" ? "/en/" + current : "/fr/" + current} class="text-sm font-semibold leading-6 text-gray-900">{lang === "fr" ? "EN" : "FR"} <span aria-hidden="true">&rarr;</span></a>
+      <a href={lang === "fr" ? "/en/" + current : "/fr/" + current} class="text-sm font-semibold leading-6 text-gray-900" id="langSelection">{lang === "fr" ? "EN" : "FR"} <span aria-hidden="true">&rarr;</span></a>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
@@ -67,6 +67,11 @@ const {lang, current} = Astro.props
   const mobileMenu = document.getElementById("mobileMenu")
   const menuButton = document.getElementById("menuBtn")
   const closeMenuButton = document.getElementById("closeMenuBtn")
+  const langSelection = document.getElementById("langSelection")
+
+  langSelection.addEventListener('click', (event) => {
+    localStorage.setItem("language", langSelection.innerText.replace(' →', ''));
+  })
 
   menuButton.addEventListener("click", () => {
     mobileMenu.classList.remove("hidden")

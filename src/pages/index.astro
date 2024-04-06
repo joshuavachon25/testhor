@@ -1,3 +1,16 @@
 ---
 
 ---
+
+<script>
+    const language = localStorage.getItem('language')
+    if(language){
+        window.location = "/" + language.toLowerCase()
+    }else{
+        if(navigator.language.includes('fr')){
+            window.location = "/fr"
+        }else{
+            window.location = "/en"
+        }
+    }
+</script>
