@@ -4,7 +4,10 @@ import { getDirectusClient } from "../../utils/directus";
 import ContentCard from "./ContentCard.astro";
 
 const client = await getDirectusClient();
-const posts = await client.request(readItems("posts", { fields: ["*", {author: ["*"]}, { translations: ["*"] }] }));
+const posts = await client.request(readItems("posts", {
+  fields: ["*", {author: ["*"]}, { translations: ["*"] }],
+  sort: ['-date_published']
+}));
 
 const l = {
   fr: {

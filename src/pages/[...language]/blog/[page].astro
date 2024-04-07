@@ -8,7 +8,10 @@ import ContentCard from "../../../components/design1/ContentCard.astro";
 export async function getStaticPaths({ paginate }) {
   const client = await getDirectusClient();
   const posts = await client.request(
-    readItems("posts", { fields: ["*", {author: ["*"]}, { translations: ["*"] }] }),
+    readItems("posts", {
+      fields: ["*", {author: ["*"]}, { translations: ["*"] }],
+      sort: ['-date_published']
+    }),
   );
   const pages: Array<Number> = [1];
   for (var i = 1; i <= posts.length; i++) {

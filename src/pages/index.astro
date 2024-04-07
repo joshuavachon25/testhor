@@ -2,7 +2,18 @@
 
 ---
 
-<script>
+<div class="absolute flex flex-col w-full h-full items-center justify-center">
+	<p class="text-5xl font-bold loading">testhor.</p>
+    <p class="text-xs text-gray-500 animate-pulse">Chargement/Loading</p>
+
+</div>
+<style>
+    .loading{
+        animation: bounce 1s infinite;
+    }
+</style>
+
+<script is:inline>
     const language = localStorage.getItem('language')
     if(language){
         window.location = "/" + language.toLowerCase()
